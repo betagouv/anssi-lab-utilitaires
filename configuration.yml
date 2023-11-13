@@ -1,0 +1,6 @@
+services:
+  - id: mss_alertes_sentry
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_SENTRY}}
+      formatage: "### [{message}]({url}) \n #### {culprit}"
