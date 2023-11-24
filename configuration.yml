@@ -3,4 +3,4 @@ services:
     type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_SENTRY}}
-      formatage: "### [{message}]({url}) \n #### {culprit}"
+      formatage: "#### Nouvelle erreur Sentry \n##### {culprit} \n[Voir sur Sentry]({url})"
