@@ -8,6 +8,21 @@ describe('Le formatage des payload', () => {
         expect(formatagePayload(template, donnees)).toEqual('1 et 2');
     });
 
+    it('remplace les balises du template par les données de n-ème niveau passées', () => {
+        const template = '{a.b} et {c.d.e}';
+        const donnees = {
+            a: {
+                b: 'B'
+            },
+            c: {
+                d: {
+                    e: 'E'
+                }
+            }
+        };
+        expect(formatagePayload(template, donnees)).toEqual('B et E');
+    });
+
     it('reste robuste si la même valeur est utilisée plusieurs fois', () => {
         const template = '{a} et {a}';
         const donnees = {a: 1};
