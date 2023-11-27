@@ -3,4 +3,9 @@ services:
     type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_SENTRY}}
-      formatage: "#### Nouvelle erreur Sentry \n##### {culprit} \n[Voir sur Sentry]({url})"
+      formatage: "#### {event.title} \n##### {culprit} \n[Voir sur Sentry]({url})"
+  - id: mss_alertes_crisp
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_CRISP}}
+      formatage: "#### Message utilisateur : {data.user.nickname} \n > {data.content} \n\n[Voir sur Crisp](https://app.crisp.chat/website/{website_id}/inbox/{data.session_id})"
