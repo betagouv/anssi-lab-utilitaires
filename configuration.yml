@@ -14,3 +14,8 @@ services:
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MAC_ALERTES_SENTRY}}
       formatage: "#### [{event.environment}] {event.title} \n##### {culprit} \n[Voir sur Sentry]({url})"
+  - id: nis2_alertes_crisp
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_NIS2_ALERTES_CRISP}}
+      formatage: "#### Message utilisateur : {data.user.nickname} \n > {data.content} \n\n[Voir sur Crisp](https://app.crisp.chat/website/{website_id}/inbox/{data.session_id})"
