@@ -19,3 +19,8 @@ services:
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_NIS2_ALERTES_CRISP}}
       formatage: "#### Message utilisateur : {data.user.nickname} \n > {data.content} \n\n[Voir sur Crisp](https://app.crisp.chat/website/{website_id}/inbox/{data.session_id})"
+  - id: mac_alertes_brevo
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_MAC_ALERTES_BREVO}}
+      formatage: "#### Email : {data.email} \n > {data.event} \n\n[Voir sur Brevo](https://app-smtp.brevo.com/real-time)"
