@@ -23,4 +23,4 @@ services:
     type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MAC_ALERTES_BREVO}}
-      formatage: "#### Email : {data.email} \n > {data.event} \n\n[Voir sur Brevo](https://app-smtp.brevo.com/real-time)"
+      formatage: "#### Email : {email} \n > {event} \n\n[Voir sur Brevo](https://app-smtp.brevo.com/real-time)"
