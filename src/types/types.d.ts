@@ -13,6 +13,7 @@ type ConfigurationService = ConfigurationRedirectionWebhook;
 type ConfigurationRedirectionWebhook = {
     idWebhookMattermost: string;
     formatage: string;
+    condition?: string;
 }
 
 type TypeService = 'redirectionWebhook';
