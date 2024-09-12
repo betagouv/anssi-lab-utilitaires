@@ -9,6 +9,11 @@ services:
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_CRISP}}
       formatage: "#### Message utilisateur : {data.user.nickname} \n > {data.content} \n\n[Voir sur Crisp](https://app.crisp.chat/website/{website_id}/inbox/{data.session_id})"
+  - id: mss_alertes_github_actions
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_GITHUB_ACTION}}
+      formatage: "#### Github Action : **{action}** **{workflow_run.name}** \n Déclenché par {actor.name} \n [Cliquez ici pour suivre l'action]({url})"
   - id: mac_alertes_sentry
     type: redirectionWebhook
     configuration:
