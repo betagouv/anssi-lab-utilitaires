@@ -32,6 +32,7 @@ for (const webhook of webhooks) {
             const condition = eval(conditionFormatee);
             if(!condition) {
                 reponse.sendStatus(200);
+                return;
             }
         }
         const donnees = {text: formatagePayload(webhook.configuration.formatage, requete.body)};
