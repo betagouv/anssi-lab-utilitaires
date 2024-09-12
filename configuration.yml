@@ -13,7 +13,7 @@ services:
     type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_GITHUB_ACTION}}
-      formatage: "#### Github Action : **{action}** **{workflow_run.name}** \n Déclenché par {actor.name} \n [Cliquez ici pour suivre l'action]({url})"
+      formatage: "##### {workflow.name} : **{action}** \n Déclenché par {triggering_actor.login} \n [Cliquez ici pour suivre l'action]({workflow_run.html_url})"
   - id: mac_alertes_sentry
     type: redirectionWebhook
     configuration:
