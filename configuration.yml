@@ -4,27 +4,32 @@ services:
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_SENTRY}}
       formatage: "#### {event.title} \n##### {culprit} \n[Voir sur Sentry]({url})"
+
   - id: mss_alertes_crisp
     type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_CRISP}}
       formatage: "#### Message utilisateur : {data.user.nickname} \n > {data.content} \n\n[Voir sur Crisp](https://app.crisp.chat/website/{website_id}/inbox/{data.session_id})"
+
   - id: mss_alertes_github_actions
     type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_GITHUB_ACTION}}
       condition: "('{action}' === 'in_progress' || '{action}' === 'completed') && '{workflow_job.name}'.includes('Déploiement')"
       formatage: "##### :truck: {workflow_job.name} : **{action}** \n :github: Démandé par {sender.login} \n [Cliquez ici pour suivre l'action]({workflow_job.html_url})"
+
   - id: mac_alertes_sentry
     type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MAC_ALERTES_SENTRY}}
       formatage: "#### [{event.environment}] {event.title} \n##### {culprit} \n[Voir sur Sentry]({url})"
+
   - id: mac_alertes_brevo
     type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MAC_ALERTES_BREVO}}
       formatage: "#### Email : {email} \n > {event} \n\n[Voir sur Brevo](https://app-smtp.brevo.com/real-time)"
+
   - id: nis2_alertes_crisp
     type: redirectionWebhook
     configuration:
