@@ -18,6 +18,20 @@ services:
       condition: "('{action}' === 'in_progress' || '{action}' === 'completed') && '{workflow_job.name}'.includes('Déploiement')"
       formatage: "##### :truck: {workflow_job.name} : **{action} (terminé en {workflow_job.conclusion})** \n ___ \n :merged: {workflow_job.workflow_name} \n :github: Démandé par {sender.login} \n ___ \n [:link: Cliquez ici pour suivre l'action]({workflow_job.html_url})"
 
+  - id: mss_alertes_github_pull_request_ouverte
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_GITHUB_PULL_REQUEST_OUVERTE}}
+      condition: "'{action}' === 'opened'"
+      formatage: "###### :git-pull-request: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été créée par :github: {pull_request.user.login}"
+
+  - id: mss_alertes_github_pull_request_mergee
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_GITHUB_PULL_REQUEST_MERGEE}}
+      condition: "'{action}' === 'closed' && {pull_request.merged} === true"
+      formatage: "###### :merged: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été mergée par :github: {pull_request.user.login}"
+
   - id: mac_alertes_sentry
     type: redirectionWebhook
     configuration:
