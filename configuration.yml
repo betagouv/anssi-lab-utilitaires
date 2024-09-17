@@ -30,7 +30,7 @@ services:
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_GITHUB_PULL_REQUEST_MERGEE}}
       condition: "'{action}' === 'closed' && {pull_request.merged} === true"
-      formatage: "###### :merged: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été mergée par :github: {pull_request.user.login}"
+      formatage: "###### :merged: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été mergée par :github: {pull_request.merged_by.login}"
 
   - id: mac_alertes_sentry
     type: redirectionWebhook
