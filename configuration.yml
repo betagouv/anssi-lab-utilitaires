@@ -25,6 +25,13 @@ services:
       condition: "'{action}' === 'opened'"
       formatage: "###### :git-pull-request: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été créée par :github: {pull_request.user.login}"
 
+  - id: mss_alertes_github_pull_request_approuvee
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_GITHUB_PULL_REQUEST_APPROUVEE}}
+      condition: "'{action}' === 'submitted' && '{review.state}' === 'approved'"
+      formatage: "###### :white_check_mark: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été approuvée par :github: {review.user.login}"
+
   - id: mss_alertes_github_pull_request_mergee
     type: redirectionWebhook
     configuration:
