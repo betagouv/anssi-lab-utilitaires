@@ -15,7 +15,7 @@ services:
     type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_GITHUB_ACTION}}
-      condition: "('{action}' === 'in_progress' || '{action}' === 'completed') && '{workflow_job.name}'.includes('Déploiement') && !'{workflow_job.name}'.includes('DEV')"
+      condition: "('{action}' === 'in_progress' || '{action}' === 'completed') && '{workflow_job.name}'.includes('Déploiement') && !'{workflow_job.name}'.includes('DEV') && '{workflow_job.conclusion}' !== 'cancelled' && '{workflow_job.conclusion}' !== 'skipped'"
       formatage: "##### :truck: {workflow_job.name} : **{action} (terminé en {workflow_job.conclusion})** \n ___ \n :merged: {workflow_job.workflow_name} \n :github: Démandé par {sender.login} \n ___ \n [:link: Cliquez ici pour suivre l'action]({workflow_job.html_url})"
 
   - id: mss_alertes_github_pull_request_ouverte
