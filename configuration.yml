@@ -1,4 +1,9 @@
 services:
+
+  ############################
+  #  MSS
+  #
+
   - id: mss_alertes_sentry
     type: redirectionWebhook
     configuration:
@@ -39,6 +44,10 @@ services:
       condition: "'{action}' === 'closed' && {pull_request.merged} === true"
       formatage: "###### :merged: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été mergée par :github: {pull_request.merged_by.login}"
 
+  ############################
+  #  MAC
+  #
+
   - id: mac_alertes_sentry
     type: redirectionWebhook
     configuration:
@@ -50,6 +59,38 @@ services:
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MAC_ALERTES_BREVO}}
       formatage: "#### Email : {email} \n > {event} \n\n[Voir sur Brevo](https://app-smtp.brevo.com/real-time)"
+
+  - id: mac_alertes_github_actions
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_WEBHOOK_MAC_GITHUB}}
+      condition: "('{action}' === 'in_progress' || '{action}' === 'completed') && '{workflow_job.name}'.includes('Déploiement') && !'{workflow_job.name}'.includes('DEV') && '{workflow_job.conclusion}' !== 'cancelled' && '{workflow_job.conclusion}' !== 'skipped'"
+      formatage: "##### :truck: {workflow_job.name} : **{action} (terminé en {workflow_job.conclusion})** \n ___ \n :merged: {workflow_job.workflow_name} \n :github: Démandé par {sender.login} \n ___ \n [:link: Cliquez ici pour suivre l'action]({workflow_job.html_url})"
+
+  - id: mac_alertes_github_pull_request_ouverte
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_WEBHOOK_MAC_GITHUB}}
+      condition: "'{action}' === 'opened'"
+      formatage: "###### :git-pull-request: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été créée par :github: {pull_request.user.login}"
+
+  - id: mac_alertes_github_pull_request_approuvee
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_WEBHOOK_MAC_GITHUB}}
+      condition: "'{action}' === 'submitted' && '{review.state}' === 'approved'"
+      formatage: "###### :white_check_mark: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été approuvée par :github: {review.user.login}"
+
+  - id: mac_alertes_github_pull_request_mergee
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_WEBHOOK_MAC_GITHUB}}
+      condition: "'{action}' === 'closed' && {pull_request.merged} === true"
+      formatage: "###### :merged: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été mergée par :github: {pull_request.merged_by.login}"
+
+  ############################
+  #  NIS2
+  #
 
   - id: nis2_alertes_crisp
     type: redirectionWebhook
