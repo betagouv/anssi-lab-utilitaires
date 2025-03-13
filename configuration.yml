@@ -88,6 +88,12 @@ services:
       condition: "'{action}' === 'closed' && {pull_request.merged} === true"
       formatage: "###### :merged: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été mergée par :github: {pull_request.merged_by.login}"
 
+  - id: mac_alertes_crisp
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_MAC_ALERTES_CRISP}}
+      formatage: "#### Message utilisateur : {data.user.nickname} \n > {data.content} \n\n[Voir sur Crisp](https://app.crisp.chat/website/{website_id}/inbox/{data.session_id})"
+
   ############################
   #  NIS2
   #
