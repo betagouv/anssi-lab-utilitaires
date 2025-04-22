@@ -119,3 +119,14 @@ services:
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSC_ALERTES_CRISP}}
       formatage: "#### Message utilisateur : {data.user.nickname} \n > {data.content} \n\n[Voir sur Crisp](https://app.crisp.chat/website/{website_id}/inbox/{data.session_id})"
+
+  ############################
+  #  LAB Admin
+  #
+
+  - id: lab_admin_alertes_github
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_LAB_ANSSI_GITHUB_ACTION}}
+      condition: "('{action}' === 'completed') && '{workflow_job.name}'.includes('Backup')"
+      formatage: "##### :floppy_disk: {workflow_job.name} : **{action} (terminé en {workflow_job.conclusion})**"
