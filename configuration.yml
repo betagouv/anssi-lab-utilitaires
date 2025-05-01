@@ -130,3 +130,14 @@ services:
       idWebhookMattermost: ${{ID_MATTERMOST_LAB_ANSSI_GITHUB_ACTION}}
       condition: "('{action}' === 'completed') && '{workflow_job.name}'.includes('Backup')"
       formatage: "##### :floppy_disk: {workflow_job.name} : **{action} (terminé en {workflow_job.conclusion})**"
+
+  ############################
+  #  UI Kit
+  #
+
+  - id: ui_kit_alertes_github_release
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_UI_KIT_GITHUB_RELEASE}}
+      condition: "('{action}' === 'published')"
+      formatage: "### :rocket: :art: UI Kit {release.name} \n {release.body}"
