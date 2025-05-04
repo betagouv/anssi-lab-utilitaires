@@ -140,7 +140,7 @@ services:
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_UI_KIT_GITHUB_RELEASE}}
       condition: "('{action}' === 'published')"
-      formatage: "### :rocket: :art: UI Kit {release.name} \n {release.body}"
+      formatage: "### :art: UI Kit {release.name} \n\n ___ \n\n {release.body}"
 
   ############################
   #  Lab ANSSI Lib
@@ -151,4 +151,4 @@ services:
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_LAB_ANSSI_LIB_GITHUB_RELEASE}}
       condition: "('{action}' === 'published')"
-      formatage: "### :rocket: :books: Lab. ANSSI Librairie {release.name} \n {release.body}"
+      formatage: "### :books: Lab. ANSSI Librairie {release.name} \n\n ___ \n\n {release.body}"
