@@ -94,6 +94,12 @@ services:
       idWebhookMattermost: ${{ID_MATTERMOST_MAC_ALERTES_CRISP}}
       formatage: "#### Message utilisateur : {data.user.nickname} \n > {data.content} \n\n[Voir sur Crisp](https://app.crisp.chat/website/{website_id}/inbox/{data.session_id})"
 
+  - id: mac_alertes_activation_compte_aidant
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_MAC_ALERTES_ACTIVATION_COMPTE_AIDANT}}
+      formatage: "#### Activation compte Aidant : \n > {data.message} \n\n Email de l'Aidant : {data.email}"
+
   ############################
   #  NIS2
   #
