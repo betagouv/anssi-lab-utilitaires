@@ -29,11 +29,11 @@ describe('Le formatage des payload', () => {
         expect(formatagePayload(template, donnees)).toEqual('1 et 1');
     });
 
-  it("reste robuste si la clé comporte des caractères spéciaux", () => {
-      const template = "{ma_cle_123}";
-      const donnees = { ma_cle_123: 1 };
-      expect(formatagePayload(template, donnees)).toEqual("1");
-  });
+    it("reste robuste si la clé comporte des caractères spéciaux", () => {
+        const template = "{ma_cle_123}";
+        const donnees = { ma_cle_123: 1 };
+        expect(formatagePayload(template, donnees)).toEqual("1");
+    });
 });
 
 describe("Le markdown", () => {

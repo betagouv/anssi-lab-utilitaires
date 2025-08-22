@@ -1,7 +1,7 @@
 const proprieteFille = (chaine: string, obj: any) => {
     const tableau = chaine.split(".");
     while(tableau.length && (obj = obj[tableau.shift()]));
-    return obj;
+    return `${obj}`;
 };
 
 export const aseptiseMarkdown = (contenu: string) =>
