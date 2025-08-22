@@ -4,6 +4,13 @@ const proprieteFille = (chaine: string, obj: any) => {
     return obj;
 };
 
+export const aseptiseMarkdown = (contenu: string) =>
+  ["\\", "!", "[", "]", "`", "{", "}", "*", "_", "<", ">", "(", ")", "#", "+", "-", ".", "|"]
+      .reduce(
+          (acc, caractere) => acc.replaceAll(caractere, `\\${caractere}`),
+          contenu,
+      );
+
 export const formatagePayload = (template: string, donnees: Record<string, any>) => {
     const regex = /{([\w.]+)}/gm;
 

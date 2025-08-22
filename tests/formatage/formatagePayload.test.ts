@@ -1,5 +1,5 @@
 import {expect, describe, it} from "vitest";
-import {formatagePayload} from "../../src/formatage/formatagePayload";
+import {aseptiseMarkdown, formatagePayload} from "../../src/formatage/formatagePayload";
 
 describe('Le formatage des payload', () => {
     it('remplace les balises du template par les données passées', () => {
@@ -29,9 +29,25 @@ describe('Le formatage des payload', () => {
         expect(formatagePayload(template, donnees)).toEqual('1 et 1');
     });
 
-    it('reste robuste si la clé comporte des caractères spéciaux', () => {
-        const template = '{ma_cle_123}';
-        const donnees = {'ma_cle_123': 1};
-        expect(formatagePayload(template, donnees)).toEqual('1');
-    });
-})
+  it("reste robuste si la clé comporte des caractères spéciaux", () => {
+      const template = "{ma_cle_123}";
+      const donnees = { ma_cle_123: 1 };
+      expect(formatagePayload(template, donnees)).toEqual("1");
+  });
+});
+
+describe("Le markdown", () => {
+  it("retourne la chaîne intacte lorsqu'elle ne contient aucun caractère spécial", () => {
+    const markdown = aseptiseMarkdown("bonjour tout le monde");
+
+    expect(markdown).toEqual("bonjour tout le monde");
+  });
+
+  ["!", "\\", "[", "]", "`", "{", "}", "*", "_", "<", ">", "(", ")", "#", "+", "-", ".", "|"].forEach((caractereAEchapper) =>
+          it(`échappe les ${caractereAEchapper}`, () => {
+              const markdown = aseptiseMarkdown(caractereAEchapper);
+
+              expect(markdown).toEqual(`\\${caractereAEchapper}`);
+          }),
+        );
+});
