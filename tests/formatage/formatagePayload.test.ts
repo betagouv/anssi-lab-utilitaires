@@ -1,5 +1,7 @@
-import {expect, describe, it} from "vitest";
-import {aseptiseMarkdown, formatagePayload} from "../../src/formatage/formatagePayload";
+import {expect, describe, it, vi} from "vitest";
+import {aseptiseMarkdown, fabriqueFormatagePayload} from "../../src/formatage/formatagePayload";
+
+const formatagePayload = fabriqueFormatagePayload(aseptiseMarkdown);
 
 describe('Le formatage des payload', () => {
     it('remplace les balises du template par les données passées', () => {
@@ -33,6 +35,20 @@ describe('Le formatage des payload', () => {
         const template = "{ma_cle_123}";
         const donnees = { ma_cle_123: 1 };
         expect(formatagePayload(template, donnees)).toEqual("1");
+    });
+
+    it("applique l'aseptisation du markdown sur le contenu injecté", () => {
+      const espion = vi.fn((_) => "");
+      const formatagePayloadAvecAseptisationDuMarkdownMockee = fabriqueFormatagePayload(espion);
+
+      const contenuAAseptiser = "# coucou";
+      const template = "{a}";
+      const donnees = { a: contenuAAseptiser };
+
+      formatagePayloadAvecAseptisationDuMarkdownMockee(template, donnees);
+
+      expect(espion).toHaveBeenCalledTimes(1);
+      expect(espion).toHaveBeenCalledWith(contenuAAseptiser);
     });
 });
 

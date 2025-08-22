@@ -11,11 +11,14 @@ export const aseptiseMarkdown = (contenu: string) =>
           contenu,
       );
 
-export const formatagePayload = (template: string, donnees: Record<string, any>) => {
-    const regex = /{([\w.]+)}/gm;
+type Aseptiseur = (c: string) => string;
+export const fabriqueFormatagePayload = (aseptiseMarkdown: Aseptiseur) => {
+    return (template: string, donnees: Record<string, any>) => {
+        const regex = /{([\w.]+)}/gm;
 
-    return [...template.matchAll(regex)].reduce((acc, match) => {
-        const [aRemplacer, cle] = match;
-        return acc.replace(aRemplacer, proprieteFille(cle, donnees))
-    }, template);
+        return [...template.matchAll(regex)].reduce((acc, match) => {
+            const [aRemplacer, cle] = match;
+            return acc.replace(aRemplacer, aseptiseMarkdown(proprieteFille(cle, donnees)))
+        }, template);
+    };
 }

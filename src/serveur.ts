@@ -2,11 +2,13 @@ import express from 'express';
 import fs from 'fs';
 import YAML, {ScalarTag} from 'yaml';
 import {Configuration} from "types";
-import {formatagePayload} from "./formatage/formatagePayload";
+import {aseptiseMarkdown, fabriqueFormatagePayload} from "./formatage/formatagePayload";
 
 const app = express();
 app.use(express.json());
 const port = process.env.PORT || 3000;
+
+const formatagePayload = fabriqueFormatagePayload(aseptiseMarkdown);
 
 const varTag = (vars: Record<string, unknown>): ScalarTag => ({
     tag: '!var',
