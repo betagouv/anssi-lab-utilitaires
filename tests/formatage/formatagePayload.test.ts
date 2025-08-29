@@ -1,4 +1,4 @@
-import {expect, describe, it, vi} from "vitest";
+import {afterEach, beforeEach, expect, describe, it, vi} from "vitest";
 import {aseptiseMarkdown, fabriqueFormatagePayload} from "../../src/formatage/formatagePayload";
 
 const formatagePayload = fabriqueFormatagePayload(aseptiseMarkdown);
@@ -48,6 +48,67 @@ describe('Le formatage des payload', () => {
       formatagePayloadAvecAseptisationDuMarkdownMockee(template, donnees);
 
       expect(espion).toHaveBeenCalledExactlyOnceWith(contenuAAseptiser);
+    });
+
+    describe("n'aseptise pas les valeurs des cles specifiees", () => {
+      let espion;
+
+      beforeEach(() => {
+        espion = vi.fn((_) => "");
+      });
+
+      afterEach(() => {
+        vi.clearAllMocks();
+      });
+
+      it('avec une seule cle', () => {
+        const formatagePayloadAvecAseptisationDuMarkdownMockee = fabriqueFormatagePayload(espion);
+
+        const template = "{a}";
+        const donnees = { a: "coucou" };
+        const aNePasAseptiser = ["a"];
+
+        formatagePayloadAvecAseptisationDuMarkdownMockee(template, donnees, aNePasAseptiser);
+
+        expect(espion).not.toHaveBeenCalled();
+      });
+
+      it('avec plusieurs cle', () => {
+        const formatagePayloadAvecAseptisationDuMarkdownMockee = fabriqueFormatagePayload(espion);
+
+        const template = "{a}, {b}";
+        const donnees = { a: "coucou", b: "bonjour" };
+        const aNePasAseptiser = ["a", "b"];
+
+        formatagePayloadAvecAseptisationDuMarkdownMockee(template, donnees, aNePasAseptiser);
+
+        expect(espion).not.toHaveBeenCalled();
+      });
+
+      it('avec plusieurs cle, mais certaines doivent tout de même être aseptisées', () => {
+        const formatagePayloadAvecAseptisationDuMarkdownMockee = fabriqueFormatagePayload(espion);
+
+        const contenuAAseptiser = "bonjour";
+        const template = "{a}, {b}";
+        const donnees = { a: "coucou", b: contenuAAseptiser };
+        const aNePasAseptiser = ["a"];
+
+        formatagePayloadAvecAseptisationDuMarkdownMockee(template, donnees, aNePasAseptiser);
+
+        expect(espion).toHaveBeenCalledExactlyOnceWith(contenuAAseptiser);
+      });
+
+      it('avec une cle ciblant un niveau profond', () => {
+        const formatagePayloadAvecAseptisationDuMarkdownMockee = fabriqueFormatagePayload(espion);
+
+        const template = "{a.b}";
+        const donnees = { a: { b: "bonjour" } };
+        const aNePasAseptiser = ["a.b"];
+
+        formatagePayloadAvecAseptisationDuMarkdownMockee(template, donnees, aNePasAseptiser);
+
+        expect(espion).not.toHaveBeenCalled();
+      });
     });
 });
 
