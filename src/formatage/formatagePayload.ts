@@ -12,8 +12,11 @@ export const aseptiseMarkdown = (contenu: string) =>
       );
 
 type Aseptiseur = (c: string) => string;
-export const fabriqueFormatagePayload = (aseptiseMarkdown: Aseptiseur) => {
-    return (template: string, donnees: Record<string, any>) => {
+type Formateur = (template: string, donnees: Record<string, any>) => string;
+type FabriqueFormateur = (aseptiseMarkdown: Aseptiseur) => Formateur;
+
+export const fabriqueFormatagePayload: FabriqueFormateur = (aseptiseMarkdown) => {
+    return (template, donnees) => {
         const regex = /{([\w.]+)}/gm;
 
         return [...template.matchAll(regex)].reduce((acc, match) => {
