@@ -28,20 +28,25 @@ const configuration = YAML.parse(fs.readFileSync('configuration.yml', 'utf8'), {
 
 const webhooks = configuration.services.filter((s) => s.type === 'redirectionWebhook');
 for (const webhook of webhooks) {
+
     app.post(`/webhooks/${webhook.id}`, async (requete, reponse) => {
+        const donneesRecues = requete.body;
+        const entreesANePasAseptiser = webhook.configuration.entreesSansInjectionDeMarkdown;
+        const rempli = (template: string) => formatagePayload(template, donneesRecues, entreesANePasAseptiser);
+
         if(webhook.configuration.condition) {
-            const conditionFormatee = formatagePayload(webhook.configuration.condition, requete.body);
+            const conditionFormatee = rempli(webhook.configuration.condition);
             const condition = eval(conditionFormatee);
             if(!condition) {
                 reponse.sendStatus(200);
                 return;
             }
         }
-        const donnees = {text: formatagePayload(webhook.configuration.formatage, requete.body)};
+        const donneesEnvoyees = {text: rempli(webhook.configuration.formatage)};
 
         await fetch(`https://mattermost.incubateur.net/hooks/${webhook.configuration.idWebhookMattermost}`, {
             method: 'post',
-            body: JSON.stringify(donnees),
+            body: JSON.stringify(donneesEnvoyees),
             headers: {'Content-Type': 'application/json'}
         });
 
