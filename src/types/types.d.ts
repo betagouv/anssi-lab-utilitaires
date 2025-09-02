@@ -14,7 +14,7 @@ type ConfigurationRedirectionWebhook = {
     idWebhookMattermost: string;
     formatage: string;
     condition?: string;
-    entreesSansInjectionDeMarkdown?: string[];
+    entreesSansInjectionsDeMarkdown?: string[];
 }
 
 type TypeService = 'redirectionWebhook';

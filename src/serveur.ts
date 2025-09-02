@@ -31,7 +31,7 @@ for (const webhook of webhooks) {
 
     app.post(`/webhooks/${webhook.id}`, async (requete, reponse) => {
         const donneesRecues = requete.body;
-        const entreesANePasAseptiser = webhook.configuration.entreesSansInjectionDeMarkdown;
+        const entreesANePasAseptiser = webhook.configuration.entreesSansInjectionsDeMarkdown;
         const rempli = (template: string) => formatagePayload(template, donneesRecues, entreesANePasAseptiser);
 
         if(webhook.configuration.condition) {
