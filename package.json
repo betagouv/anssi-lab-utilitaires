@@ -4,22 +4,20 @@
   "description": "Une application backend fournissant des utilitaires transverses pour le Lab de l'ANSSI",
   "main": "dist/serveur.js",
   "scripts": {
-    "start": "node dist/serveur.js",
-    "start:dev": "env $(cat .env) nodemon src/serveur.ts",
-    "build": "tsc",
+    "start": "node --import tsx src/serveur.ts",
+    "start:dev": "env $(cat .env) npm run start -- --watch",
     "test": "vitest"
   },
   "author": "ThibaudMZN",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.21",
-    "nodemon": "^3.0.1",
-    "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
     "vitest": "^3.2.4"
   },
   "dependencies": {
     "express": "^4.21.2",
+    "tsx": "^4.20.5",
     "yaml": "^2.3.4"
   }
 }
