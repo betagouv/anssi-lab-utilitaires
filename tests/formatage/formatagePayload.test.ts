@@ -47,8 +47,7 @@ describe('Le formatage des payload', () => {
 
       formatagePayloadAvecAseptisationDuMarkdownMockee(template, donnees);
 
-      expect(espion).toHaveBeenCalledTimes(1);
-      expect(espion).toHaveBeenCalledWith(contenuAAseptiser);
+      expect(espion).toHaveBeenCalledExactlyOnceWith(contenuAAseptiser);
     });
 });
 
