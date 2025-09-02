@@ -5,7 +5,7 @@ import YAML, {ScalarTag} from 'yaml';
 import {Configuration} from "types";
 import {aseptiseMarkdown, fabriqueFormatagePayload} from "./formatage/formatagePayload";
 
-const fabriqueApplication: () => Application = () => {
+const fabriqueApplication: (webhookIds: Record<string, string>) => Application = (webhookIds) => {
     const app = express();
     app.use(express.json());
 
@@ -25,7 +25,7 @@ const fabriqueApplication: () => Application = () => {
                 }
             })
     })
-    const configuration = YAML.parse(fs.readFileSync('configuration.yml', 'utf8'), {customTags: [varTag({...process.env})]}) as Configuration;
+    const configuration = YAML.parse(fs.readFileSync('configuration.yml', 'utf8'), {customTags: [varTag(webhookIds)]}) as Configuration;
 
     const webhooks = configuration.services.filter((s) => s.type === 'redirectionWebhook');
     for (const webhook of webhooks) {

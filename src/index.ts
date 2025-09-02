@@ -1,6 +1,5 @@
 import {fabriqueApplication, demarre} from "./serveur";
+import {port, webhookIds} from "./adaptateurEnvironnement";
 
-const port = parseInt(process.env.PORT || "") || 3000;
-
-const application = fabriqueApplication();
+const application = fabriqueApplication(webhookIds);
 demarre(application, port);
