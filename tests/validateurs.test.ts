@@ -1,4 +1,3 @@
-import fs from "node:fs";
 import {describe, expect, it} from "vitest";
 import type { Request } from "../src/validateurs";
 
@@ -6,8 +5,10 @@ import { fabriqueValidateurDeRequeteGitHub } from "../src/validateurs/github";
 
 describe('le validateur de requetes GitHub', () => {
     const bonSecret = "choucroute";
-    const bonCorps = fs.readFileSync('tests/mocks/requete_corps.json', 'utf8');
-    const bonnesEntetes = JSON.parse(fs.readFileSync('tests/mocks/requete_entete.json', 'utf8'));
+    const bonCorps = "{}";
+    const bonnesEntetes = {
+        "x-hub-signature-256": "sha256=16d0099693d39c489aa64396b263f299df7377cebd3e6d4eb5fd80ea5e293c52",
+    };
 
     const mockCorps = (corps: string) => ({ toString: () => corps });
 
