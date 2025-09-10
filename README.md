@@ -12,3 +12,11 @@ Avant le premier lancement, il faut donc créer le fichier spécifiant ces varia
 ```sh
 npm run start:dev
 ```
+
+## Contribuer
+
+Pour lancer les tests il faut utiliser :
+
+```sh
+npm run test
+```
