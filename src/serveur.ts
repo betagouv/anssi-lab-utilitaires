@@ -1,31 +1,13 @@
 import express from 'express';
 import type { Application } from 'express';
-import fs from 'fs';
-import YAML, {ScalarTag} from 'yaml';
-import {Configuration} from "types";
+import {Configuration} from "./configuration";
 import {aseptiseMarkdown, fabriqueFormatagePayload} from "./formatage/formatagePayload";
 
-const fabriqueApplication: (webhookIds: Record<string, string>) => Application = (webhookIds) => {
+const fabriqueApplication: (configuration: Configuration) => Application = (configuration) => {
     const app = express();
     app.use(express.json());
 
     const formatagePayload = fabriqueFormatagePayload(aseptiseMarkdown);
-
-    const varTag = (vars: Record<string, unknown>): ScalarTag => ({
-        tag: '!var',
-        default: true,
-        test: /\${{.*}}/,
-        resolve: (str, onError) =>
-            str.replace(/\${{(.*?)}}/g, (orig, name) => {
-                if (Object.prototype.hasOwnProperty.call(vars, name)) {
-                    return String(vars[name])
-                } else {
-                    onError(`Unknown variable: ${name}`)
-                    return orig
-                }
-            })
-    })
-    const configuration = YAML.parse(fs.readFileSync('configuration.yml', 'utf8'), {customTags: [varTag(webhookIds)]}) as Configuration;
 
     const webhooks = configuration.services.filter((s) => s.type === 'redirectionWebhook');
     for (const webhook of webhooks) {
