@@ -1,4 +1,5 @@
 import {afterEach, beforeEach, expect, describe, it, vi} from "vitest";
+import type {Mock} from "vitest";
 import {aseptiseMarkdown, fabriqueFormatagePayload} from "../../src/formatage/formatagePayload";
 
 const formatagePayload = fabriqueFormatagePayload(aseptiseMarkdown);
@@ -51,7 +52,7 @@ describe('Le formatage des payload', () => {
     });
 
     describe("n'aseptise pas les valeurs des cles specifiees", () => {
-      let espion;
+      let espion: Mock<(x: unknown) => string>;
 
       beforeEach(() => {
         espion = vi.fn((_) => "");

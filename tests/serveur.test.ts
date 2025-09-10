@@ -1,8 +1,8 @@
 import {describe, expect, it} from "vitest";
 import supertest from "supertest";
 
-import {recupereConfiguration} from "../src/configuration.ts";
-import {fabriqueApplication} from "../src/serveur.ts";
+import {recupereConfiguration} from "../src/configuration";
+import {fabriqueApplication} from "../src/serveur";
 
 const webhookIdsPourLesTests = Object.fromEntries([
   "ID_MATTERMOST_MSS_ALERTES_SENTRY",
