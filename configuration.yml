@@ -5,20 +5,17 @@ services:
   #
 
   - id: mss_alertes_sentry
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_SENTRY}}
       formatage: "#### {event.title} \n##### {culprit} \n[Voir sur Sentry]({url})"
       entreesSansInjectionsDeMarkdown: ["url"]
 
   - id: mss_alertes_crisp
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_CRISP}}
       formatage: "#### Message utilisateur : {data.user.nickname} \n > {data.content} \n\n[Voir sur Crisp](https://app.crisp.chat/website/{website_id}/inbox/{data.session_id})"
 
   - id: mss_alertes_github_actions
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_GITHUB_ACTION}}
       condition: "('{action}' === 'in_progress' || '{action}' === 'completed') && '{workflow_job.name}'.includes('Déploiement') && !'{workflow_job.name}'.includes('DEV') && '{workflow_job.conclusion}' !== 'cancelled' && '{workflow_job.conclusion}' !== 'skipped'"
@@ -26,7 +23,6 @@ services:
       entreesSansInjectionsDeMarkdown: ["workflow_job.html_url"]
 
   - id: mss_alertes_github_pull_request_ouverte
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_GITHUB_PULL_REQUEST_OUVERTE}}
       condition: "'{action}' === 'opened'"
@@ -34,7 +30,6 @@ services:
       entreesSansInjectionsDeMarkdown: ["pull_request.html_url"]
 
   - id: mss_alertes_github_pull_request_approuvee
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_GITHUB_PULL_REQUEST_APPROUVEE}}
       condition: "'{action}' === 'submitted' && '{review.state}' === 'approved'"
@@ -42,7 +37,6 @@ services:
       entreesSansInjectionsDeMarkdown: ["pull_request.html_url"]
 
   - id: mss_alertes_github_pull_request_mergee
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSS_ALERTES_GITHUB_PULL_REQUEST_MERGEE}}
       condition: "'{action}' === 'closed' && {pull_request.merged} === true"
@@ -54,20 +48,17 @@ services:
   #
 
   - id: mac_alertes_sentry
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MAC_ALERTES_SENTRY}}
       formatage: "#### [{event.environment}] {event.title} \n##### {culprit} \n[Voir sur Sentry]({url})"
       entreesSansInjectionsDeMarkdown: ["url"]
 
   - id: mac_alertes_brevo
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MAC_ALERTES_BREVO}}
       formatage: "#### Email : {email} \n > {event} \n\n[Voir sur Brevo](https://app-smtp.brevo.com/real-time)"
 
   - id: mac_alertes_github_actions
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_WEBHOOK_MAC_GITHUB}}
       condition: "('{action}' === 'in_progress' || '{action}' === 'completed') && '{workflow_job.name}'.includes('Déploiement') && !'{workflow_job.name}'.includes('DEV') && '{workflow_job.conclusion}' !== 'cancelled' && '{workflow_job.conclusion}' !== 'skipped'"
@@ -75,7 +66,6 @@ services:
       entreesSansInjectionsDeMarkdown: ["workflow_job.html_url"]
 
   - id: mac_alertes_github_pull_request_ouverte
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_WEBHOOK_MAC_GITHUB}}
       condition: "'{action}' === 'opened'"
@@ -83,7 +73,6 @@ services:
       entreesSansInjectionsDeMarkdown: ["pull_request.html_url"]
 
   - id: mac_alertes_github_pull_request_approuvee
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_WEBHOOK_MAC_GITHUB}}
       condition: "'{action}' === 'submitted' && '{review.state}' === 'approved'"
@@ -91,7 +80,6 @@ services:
       entreesSansInjectionsDeMarkdown: ["pull_request.html_url"]
 
   - id: mac_alertes_github_pull_request_mergee
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_WEBHOOK_MAC_GITHUB}}
       condition: "'{action}' === 'closed' && {pull_request.merged} === true"
@@ -99,7 +87,6 @@ services:
       entreesSansInjectionsDeMarkdown: ["pull_request.html_url"]
 
   - id: mac_alertes_crisp
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MAC_ALERTES_CRISP}}
       formatage: "#### Message utilisateur : {data.user.nickname} \n > {data.content} \n\n[Voir sur Crisp](https://app.crisp.chat/website/{website_id}/inbox/{data.session_id})"
@@ -109,7 +96,6 @@ services:
   #
 
   - id: nis2_alertes_crisp
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_NIS2_ALERTES_CRISP}}
       formatage: "#### Message utilisateur : {data.user.nickname} \n > {data.content} \n\n[Voir sur Crisp](https://app.crisp.chat/website/{website_id}/inbox/{data.session_id})"
@@ -119,14 +105,12 @@ services:
   #
 
   - id: msc_alertes_sentry
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSC_ALERTES_SENTRY}}
       formatage: "#### {event.title} \n##### {culprit} \n[Voir sur Sentry]({url})"
       entreesSansInjectionsDeMarkdown: ["url"]
 
   - id: msc_alertes_crisp
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_MSC_ALERTES_CRISP}}
       formatage: "#### Message utilisateur : {data.user.nickname} \n > {data.content} \n\n[Voir sur Crisp](https://app.crisp.chat/website/{website_id}/inbox/{data.session_id})"
@@ -136,7 +120,6 @@ services:
   #
 
   - id: lab_admin_alertes_github
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_LAB_ANSSI_GITHUB_ACTION}}
       condition: "('{action}' === 'completed') && '{workflow_job.name}'.includes('Backup')"
@@ -147,7 +130,6 @@ services:
   #
 
   - id: ui_kit_alertes_github_release
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_UI_KIT_GITHUB_RELEASE}}
       condition: "('{action}' === 'published')"
@@ -158,7 +140,6 @@ services:
   #
 
   - id: lab_anssi_lib_alertes_github_release
-    type: redirectionWebhook
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_LAB_ANSSI_LIB_GITHUB_RELEASE}}
       condition: "('{action}' === 'published')"

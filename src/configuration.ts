@@ -7,11 +7,8 @@ export type Configuration = {
 
 type Service = {
     id: string;
-    type: TypeService;
-    configuration: ConfigurationService;
+    configuration: ConfigurationRedirectionWebhook;
 }
-
-type ConfigurationService = ConfigurationRedirectionWebhook;
 
 type ConfigurationRedirectionWebhook = {
     idWebhookMattermost: string;
@@ -19,8 +16,6 @@ type ConfigurationRedirectionWebhook = {
     condition?: string;
     entreesSansInjectionsDeMarkdown?: string[];
 }
-
-type TypeService = 'redirectionWebhook';
 
 const varTag = (vars: Record<string, unknown>): ScalarTag => ({
     tag: '!var',

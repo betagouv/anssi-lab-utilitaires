@@ -9,7 +9,7 @@ const fabriqueApplication: (configuration: Configuration) => Application = (conf
 
     const formatagePayload = fabriqueFormatagePayload(aseptiseMarkdown);
 
-    const webhooks = configuration.services.filter((s) => s.type === 'redirectionWebhook');
+    const webhooks = configuration.services;
     for (const webhook of webhooks) {
 
         app.post(`/webhooks/${webhook.id}`, async (requete, reponse) => {
