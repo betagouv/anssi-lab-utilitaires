@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node --import tsx src/index.ts",
     "start:dev": "env $(cat .env) npm run start -- --watch",
-    "test": "vitest"
+    "test:watch": "npm run test:typecheck -- --watch && npm run test:logic",
+    "test:typecheck": "tsc --noEmit",
+    "test:logic": "vitest"
   },
   "author": "ThibaudMZN",
   "license": "ISC",

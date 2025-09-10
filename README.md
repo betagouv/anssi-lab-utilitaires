@@ -15,8 +15,8 @@ npm run start:dev
 
 ## Contribuer
 
-Pour lancer les tests il faut utiliser :
+Pour lancer les tests qui se rechargent automatiquement lors de la mise à jour des sources, il faut utiliser :
 
 ```sh
-npm run test
+npm run test:watch
 ```
