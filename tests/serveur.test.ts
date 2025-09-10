@@ -1,6 +1,7 @@
 import {describe, expect, it} from "vitest";
 import supertest from "supertest";
 
+import {recupereConfiguration} from "../src/configuration.ts";
 import {fabriqueApplication} from "../src/serveur.ts";
 
 const webhookIdsPourLesTests = Object.fromEntries([
@@ -26,7 +27,8 @@ const webhookIdsPourLesTests = Object.fromEntries([
   "ID_MATTERMOST_LAB_ANSSI_LIB_GITHUB_RELEASE",
   ].map((v) => [v, process.env[`valeur pour la variable ${v}`]])) as Record<string, string>;
 
-const app = fabriqueApplication(webhookIdsPourLesTests);
+const configuration = recupereConfiguration(webhookIdsPourLesTests);
+const app = fabriqueApplication(configuration);
 
 describe("l'API de l'application", () => {
     it("n'a pas de ressource racine", async () => {
