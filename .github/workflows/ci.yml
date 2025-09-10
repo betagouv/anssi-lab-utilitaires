@@ -1,0 +1,41 @@
+name: L'intégration continue
+permissions: {}
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Construction et Validation
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cloner le dépôt Git
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: latest
+
+      - name: Installer les dépendances
+        run: npm ci
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: true
+
+      - name: Contrôler le Typescript
+        run: npm run test:typecheck
+
+      - name: Exécuter les tests
+        run: npm run test:logic -- --run --reporter junit --outputFile=./test-report.xml
+
+      - name: Rapport des tests
+        uses: dorny/test-reporter@v2
+        if: ${{ !cancelled() }} # On force l'exécution même si l'étape précédente a échoué
+        with:
+          name: Tests
+          path: ./test-report.xml
+          reporter: jest-junit
