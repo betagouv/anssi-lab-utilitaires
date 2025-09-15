@@ -5,14 +5,13 @@ import {aseptiseMarkdown, fabriqueFormatagePayload} from "./formatage/formatageP
 
 const fabriqueApplication: (configuration: Configuration) => Application = (configuration) => {
     const app = express();
-    app.use(express.json());
 
     const formatagePayload = fabriqueFormatagePayload(aseptiseMarkdown);
 
     const webhooks = configuration.services;
     for (const webhook of webhooks) {
 
-        app.post(`/webhooks/${webhook.id}`, async (requete, reponse) => {
+        app.post(`/webhooks/${webhook.id}`, express.json(), async (requete, reponse) => {
             const donneesRecues = requete.body;
             const entreesANePasAseptiser = webhook.configuration.entreesSansInjectionsDeMarkdown;
             const rempli = (template: string) => formatagePayload(template, donneesRecues, entreesANePasAseptiser);
