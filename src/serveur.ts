@@ -2,6 +2,7 @@ import express from 'express';
 import type { Application } from 'express';
 import {Configuration} from "./configuration";
 import {aseptiseMarkdown, fabriqueFormatagePayload} from "./formatage/formatagePayload";
+import {recupereValidateurDeRequete} from './validateurs/index';
 
 const fabriqueApplication: (configuration: Configuration) => Application = (configuration) => {
     const app = express();
@@ -11,8 +12,12 @@ const fabriqueApplication: (configuration: Configuration) => Application = (conf
     const webhooks = configuration.services;
     for (const webhook of webhooks) {
 
-        app.post(`/webhooks/${webhook.id}`, express.json(), async (requete, reponse) => {
+        const validateur = recupereValidateurDeRequete();
+        const middleware = express.Router().use([validateur, express.json()]);
+
+        app.post(`/webhooks/${webhook.id}`, middleware, async (requete, reponse) => {
             const donneesRecues = requete.body;
+
             const entreesANePasAseptiser = webhook.configuration.entreesSansInjectionsDeMarkdown;
             const rempli = (template: string) => formatagePayload(template, donneesRecues, entreesANePasAseptiser);
 

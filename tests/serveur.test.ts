@@ -27,12 +27,28 @@ const webhookIdsPourLesTests = Object.fromEntries([
   "ID_MATTERMOST_LAB_ANSSI_LIB_GITHUB_RELEASE",
   ].map((v) => [v, process.env[`valeur pour la variable ${v}`]])) as Record<string, string>;
 
-const configuration = recupereConfiguration(webhookIdsPourLesTests);
-const app = fabriqueApplication(configuration);
+const defaultConfiguration = recupereConfiguration(webhookIdsPourLesTests);
+const defaultApp = fabriqueApplication(defaultConfiguration)
 
 describe("l'API de l'application", () => {
     it("n'a pas de ressource racine", async () => {
-        const reponse = await supertest(app).get('/');
+        const reponse = await supertest(defaultApp).get('/');
         expect(reponse.status).to.equal(404);
+    });
+
+    describe("sur routes utilisés par les webhooks", () => {
+        describe("sans validateur par défaut", () => {
+            const webhooksSansValidateur = defaultConfiguration.services
+                .filter((s) => !("validateur" in s.configuration));
+
+            webhooksSansValidateur.map((s) => s.id).forEach((w) => {
+                const routeWebhook = `/webhooks/${w}`;
+
+                it(`rejette les requêtes sur ${routeWebhook}`, async () => {
+                    const reponse = await supertest(defaultApp).post(routeWebhook);
+                    expect(reponse.status).to.equal(401);
+                });
+            });
+        });
     });
 });

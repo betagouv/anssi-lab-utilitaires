@@ -10,7 +10,7 @@ type Service = {
     configuration: ConfigurationRedirectionWebhook;
 }
 
-type ConfigurationRedirectionWebhook = {
+export type ConfigurationRedirectionWebhook = {
     idWebhookMattermost: string;
     formatage: string;
     condition?: string;
