@@ -163,3 +163,14 @@ services:
       idWebhookMattermost: ${{ID_MATTERMOST_LAB_ANSSI_LIB_GITHUB_RELEASE}}
       condition: "('{action}' === 'published')"
       formatage: "### :books: Lab. ANSSI Librairie {release.name} \n\n ___ \n\n {release.body}"
+
+  ############################
+  #  DSC
+  #
+
+  - id: dsc_alertes_sentry
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_DSC_ALERTES_SENTRY}}
+      formatage: "#### [{event.environment}] {event.title} \n##### {culprit} \n[Voir sur Sentry]({url})"
+      entreesSansInjectionsDeMarkdown: [ "url" ]
