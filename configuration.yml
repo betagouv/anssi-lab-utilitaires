@@ -186,3 +186,11 @@ services:
       condition: "('{action}' === 'created')"
       formatage: "#### 🤖📦 Nouvelle alerte de sécurité sur la dépendance `{alert.dependency.package.name}`\nLe dépôt **{repository.name}** [a une nouvelle vulnérabilité]({alert.html_url}) de sévérité `{alert.security_vulnerability.severity}`."
       entreesSansInjectionsDeMarkdown: [ "alert.html_url" ]
+
+  - id: lab_anssi_code_scanning
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_CODE_SCANNING}}
+      condition: "('{action}' === 'created')"
+      formatage: "#### 🤖🛡️ Vulnérabilité détectée dans notre code\nLe dépôt **{repository.name}** [a une nouvelle vulnérabilité]({alert.html_url}) de sévérité `{alert.rule.severity}`, détectée par la règle `{alert.rule.id}`.\n> {alert.rule.full_description}"
+      entreesSansInjectionsDeMarkdown: [ "alert.rule.id", "alert.html_url" ]
