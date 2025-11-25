@@ -174,3 +174,15 @@ services:
       idWebhookMattermost: ${{ID_MATTERMOST_DSC_ALERTES_SENTRY}}
       formatage: "#### [{event.environment}] {event.title} \n##### {culprit} \n[Voir sur Sentry]({url})"
       entreesSansInjectionsDeMarkdown: [ "url" ]
+
+  ############################
+  #  Lab' ANSSI Général 👮
+  #
+
+  - id: lab_anssi_dependabot
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_DEPENDABOT}}
+      condition: "('{action}' === 'created')"
+      formatage: "#### 🤖📦 Nouvelle alerte de sécurité sur la dépendance `{alert.dependency.package.name}`\nLe dépôt **{repository.name}** [a une nouvelle vulnérabilité]({alert.html_url}) de sévérité `{alert.security_vulnerability.severity}`."
+      entreesSansInjectionsDeMarkdown: [ "alert.html_url" ]
