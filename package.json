@@ -9,7 +9,8 @@
     "start:dev": "env $(cat .env) pnpm run start --watch",
     "test:watch": "pnpm run test:typecheck -- --watch & pnpm run test:logic",
     "test:typecheck": "tsc --noEmit",
-    "test:logic": "vitest"
+    "test:logic": "vitest",
+    "preinstall": "npx only-allow@1.2.2 pnpm"
   },
   "author": "ThibaudMZN",
   "license": "ISC",
