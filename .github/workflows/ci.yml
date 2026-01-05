@@ -28,8 +28,6 @@ jobs:
 
       - name: Installer les dépendances
         run: pnpm install
-        env:
-          PUPPETEER_SKIP_DOWNLOAD: true
 
       - name: Contrôler le Typescript
         run: pnpm run test:typecheck
