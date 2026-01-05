@@ -10,7 +10,7 @@ L'application utilise plusieurs variables d'environnement.
 Avant le premier lancement, il faut donc créer le fichier spécifiant ces variables `cp .env.template .env`, puis leur donner des valeurs adéquates.
 
 ```sh
-npm run start:dev
+pnpm run start:dev
 ```
 
 ## Contribuer
@@ -18,5 +18,5 @@ npm run start:dev
 Pour lancer les tests qui se rechargent automatiquement lors de la mise à jour des sources, il faut utiliser :
 
 ```sh
-npm run test:watch
+pnpm run test:watch
 ```

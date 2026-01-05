@@ -24,7 +24,7 @@ jobs:
 
       - name: Installer la CLI Clever Cloud
         shell: bash
-        run: npm install -g clever-tools@4.4.0
+        run: npm install -g clever-tools@4.4.0  # Utilisation de `npm` acceptable avec une version épinglée
 
       - name: Déployer en PROD
         env:
