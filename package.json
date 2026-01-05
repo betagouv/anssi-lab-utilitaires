@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "Une application backend fournissant des utilitaires transverses pour le Lab de l'ANSSI",
   "main": "dist/serveur.js",
+  "packageManager": "pnpm@10.24.0",
   "scripts": {
     "start": "node --import tsx src/index.ts",
-    "start:dev": "env $(cat .env) npm run start -- --watch",
-    "test:watch": "npm run test:typecheck -- --watch & npm run test:logic",
+    "start:dev": "env $(cat .env) pnpm run start --watch",
+    "test:watch": "pnpm run test:typecheck -- --watch & pnpm run test:logic",
     "test:typecheck": "tsc --noEmit",
     "test:logic": "vitest"
   },
