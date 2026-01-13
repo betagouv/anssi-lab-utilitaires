@@ -60,12 +60,6 @@ services:
       formatage: "#### [{event.environment}] {event.title} \n##### {culprit} \n[Voir sur Sentry]({url})"
       entreesSansInjectionsDeMarkdown: ["url"]
 
-  - id: mac_alertes_brevo
-    type: redirectionWebhook
-    configuration:
-      idWebhookMattermost: ${{ID_MATTERMOST_MAC_ALERTES_BREVO}}
-      formatage: "#### Email : {email} \n > {event} \n\n[Voir sur Brevo](https://app-smtp.brevo.com/real-time)"
-
   - id: mac_alertes_github_actions
     type: redirectionWebhook
     configuration:
