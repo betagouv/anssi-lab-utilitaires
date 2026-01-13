@@ -17,10 +17,10 @@ jobs:
         with:
           fetch-depth: 0 # Cloner l'intégralité du dépôt, pour ne pas avoir de « shallow repo » rejeté par Clever
 
-      - name: Utiliser la version Node.js 22
-        uses: actions/setup-node@v3
+      - name: Utiliser la bonne version de Node.js
+        uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version-file: '.nvmrc'
 
       - name: Installer la CLI Clever Cloud
         shell: bash
@@ -32,5 +32,7 @@ jobs:
           CLEVER_TOKEN: ${{ secrets.CLEVER_CLOUD_TOKEN }}
           ID_APP: ${{ secrets.CLEVER_CLOUD_ID_APP }}
         run: |
+          NODE_VERSION="$(./scripts/get-node-version.sh)"
           clever link "$ID_APP"
+          clever env set CC_NODE_VERSION "$NODE_VERSION"
           clever deploy --force --same-commit-policy=rebuild
