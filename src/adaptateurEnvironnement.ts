@@ -22,6 +22,7 @@ const webhookIds = Object.fromEntries([
   "ID_MATTERMOST_DSC_ALERTES_SENTRY",
   "ID_MATTERMOST_DEPENDABOT",
   "ID_MATTERMOST_CODE_SCANNING",
+  "ID_MATTERMOST_CLEVERCLOUD",
   ].map((v) => [v, process.env[v]]));
 
 export { port, webhookIds };

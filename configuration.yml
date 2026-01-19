@@ -178,3 +178,10 @@ services:
       condition: "('{action}' === 'created')"
       formatage: "#### 🤖🛡️ Vulnérabilité détectée dans notre code\nLe dépôt **{repository.name}** [a une nouvelle vulnérabilité]({alert.html_url}) de sévérité `{alert.rule.severity}`, détectée par la règle `{alert.rule.id}`.\n> {alert.rule.full_description}"
       entreesSansInjectionsDeMarkdown: [ "alert.rule.id", "alert.html_url" ]
+
+  - id: lab_anssi_clevercloud
+    type: redirectionWebhook
+    configuration:
+      idWebhookMattermost: ${{ID_MATTERMOST_CLEVERCLOUD}}
+      condition: "('{deployment.action}' === 'DEPLOY' && '{deployment.state}' === 'OK')"
+      formatage: "#### 🚀☁️:clever_cloud: Nouveau déploiement sur CleverCloud pour `{application.name}`\nLe commit `{commitId}` a été déployé par `{authorId}`."
