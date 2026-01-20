@@ -184,5 +184,5 @@ services:
     configuration:
       idWebhookMattermost: ${{ID_MATTERMOST_CLEVERCLOUD}}
       condition: "('{deployment.action}' === 'DEPLOY' && '{deployment.state}' === 'OK')"
-      formatage: "#### 🚀☁️:clever_cloud: Nouveau déploiement sur CleverCloud pour `{application.name}`\nLe commit `{data.commit}` a été déployé par `{authorId}`."
+      formatage: "#### 🚀☁️:clever_cloud: Nouveau déploiement sur CleverCloud pour `{application.name}`\nLe commit `{data.commitId}` a été déployé par `{authorId}`."
       entreesSansInjectionsDeMarkdown: [ "application.name", "authorId" ]
