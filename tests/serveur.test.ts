@@ -36,4 +36,10 @@ describe("l'API de l'application", () => {
         const reponse = await supertest(app).get('/');
         expect(reponse.status).to.equal(404);
     });
+
+    it("vérifie comment fonctionne les URL", () => {
+      expect(new URL('https://google.fr').toString()).toBe('https://google.fr/')
+      expect(new URL('hooks', 'https://google.fr').toString()).toBe('https://google.fr/hooks')
+      expect(new URL(`/hooks/${34}`, 'https://google.fr').toString()).toBe('https://google.fr/hooks/34')
+    });
 });

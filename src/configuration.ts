@@ -5,7 +5,7 @@ export type Configuration = {
     services: Service[];
 }
 
-type Service = {
+export type Service = {
     id: string;
     type: TypeService;
     configuration: ConfigurationService;
@@ -14,6 +14,7 @@ type Service = {
 type ConfigurationService = ConfigurationRedirectionWebhook;
 
 type ConfigurationRedirectionWebhook = {
+    urlHoteMattermost?: string
     idWebhookMattermost: string;
     formatage: string;
     condition?: string;
