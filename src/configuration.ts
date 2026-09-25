@@ -23,19 +23,22 @@ type ConfigurationRedirectionWebhook = {
 
 type TypeService = 'redirectionWebhook';
 
-const varTag = (vars: Record<string, unknown>): ScalarTag => ({
-    tag: '!var',
-    default: true,
-    test: /\${{.*}}/,
-    resolve: (str, onError) =>
-        str.replace(/\${{(.*?)}}/g, (orig, name) => {
-            if (Object.prototype.hasOwnProperty.call(vars, name)) {
-                return String(vars[name])
-            } else {
-                onError(`Unknown variable: ${name}`)
-                return orig
-            }
-        })
+type Variables = Record<string, string | undefined>;
+
+const tagEnv = (variables: Variables, manquantes: string[]): ScalarTag => ({
+    tag: '!env',
+    resolve: (nom) => {
+        const valeur = variables[nom];
+        if (!valeur) manquantes.push(nom);
+        return valeur ?? '';
+    }
 })
 
-export const recupereConfiguration = (webhookIds: Record<string, string>) => YAML.parse(fs.readFileSync('configuration.yml', 'utf8'), {customTags: [varTag(webhookIds)]}) as Configuration;
+export const recupereConfiguration = (variables: Variables): Configuration => {
+    const manquantes: string[] = [];
+    const configuration = YAML.parse(fs.readFileSync('configuration.yml', 'utf8'), {customTags: [tagEnv(variables, manquantes)]}) as Configuration;
+    if (manquantes.length > 0) {
+        throw new Error(`Variables d'environnement manquantes : ${[...new Set(manquantes)].join(', ')}`);
+    }
+    return configuration;
+}
