@@ -1,7 +1,13 @@
 import express from 'express';
 import type { Application } from 'express';
-import {Configuration} from "./configuration";
+import {Configuration, Service} from "./configuration";
 import {aseptiseMarkdown, fabriqueFormatagePayload} from "./formatage/formatagePayload";
+
+const fabriqueUrlComplete = (webhook: Service): URL => {
+    return new URL(
+      `/hooks/${webhook.configuration.idWebhookMattermost}`,
+      `https://mattermost.incubateur.net`)
+}
 
 const fabriqueApplication: (configuration: Configuration) => Application = (configuration) => {
     const app = express();
@@ -10,6 +16,8 @@ const fabriqueApplication: (configuration: Configuration) => Application = (conf
     const formatagePayload = fabriqueFormatagePayload(aseptiseMarkdown);
 
     const webhooks = configuration.services.filter((s) => s.type === 'redirectionWebhook');
+
+
     for (const webhook of webhooks) {
 
         app.post(`/webhooks/${webhook.id}`, async (requete, reponse) => {
@@ -27,7 +35,7 @@ const fabriqueApplication: (configuration: Configuration) => Application = (conf
             }
             const donneesEnvoyees = {text: rempli(webhook.configuration.formatage)};
 
-            await fetch(`https://mattermost.incubateur.net/hooks/${webhook.configuration.idWebhookMattermost}`, {
+            await fetch(fabriqueUrlComplete(webhook), {
                 method: 'post',
                 body: JSON.stringify(donneesEnvoyees),
                 headers: {'Content-Type': 'application/json'}
