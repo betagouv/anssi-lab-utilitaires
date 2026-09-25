@@ -7,6 +7,7 @@ services:
   - id: mss_alertes_sentry
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_MSS_ALERTES_SENTRY
       formatage: "#### {event.title} \n##### {culprit} \n[Voir sur Sentry]({url})"
       entreesSansInjectionsDeMarkdown: ["url"]
@@ -14,12 +15,14 @@ services:
   - id: mss_alertes_crisp
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_MSS_ALERTES_CRISP
       formatage: "#### Message utilisateur : {data.user.nickname} \n > {data.content} \n\n[Voir sur Crisp](https://app.crisp.chat/website/{website_id}/inbox/{data.session_id})"
 
   - id: mss_alertes_github_actions
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_MSS_ALERTES_GITHUB_ACTION
       condition: "('{action}' === 'in_progress' || '{action}' === 'completed') && '{workflow_job.name}'.includes('Déploiement') && !'{workflow_job.name}'.includes('DEV') && '{workflow_job.conclusion}' !== 'cancelled' && '{workflow_job.conclusion}' !== 'skipped'"
       formatage: "##### :truck: {workflow_job.name} : **{action} (terminé en {workflow_job.conclusion})** \n ___ \n :merged: {workflow_job.workflow_name} \n :github: Démandé par {sender.login} \n ___ \n [:link: Cliquez ici pour suivre l'action]({workflow_job.html_url})"
@@ -28,6 +31,7 @@ services:
   - id: mss_alertes_github_pull_request_ouverte
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_MSS_ALERTES_GITHUB_PULL_REQUEST_OUVERTE
       condition: "'{action}' === 'opened'"
       formatage: "###### :git-pull-request: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été créée par :github: {pull_request.user.login}"
@@ -36,6 +40,7 @@ services:
   - id: mss_alertes_github_pull_request_approuvee
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_MSS_ALERTES_GITHUB_PULL_REQUEST_APPROUVEE
       condition: "'{action}' === 'submitted' && '{review.state}' === 'approved'"
       formatage: "###### :white_check_mark: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été approuvée par :github: {review.user.login}"
@@ -44,6 +49,7 @@ services:
   - id: mss_alertes_github_pull_request_mergee
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_MSS_ALERTES_GITHUB_PULL_REQUEST_MERGEE
       condition: "'{action}' === 'closed' && {pull_request.merged} === true"
       formatage: "###### :merged: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été mergée par :github: {pull_request.merged_by.login}"
@@ -56,6 +62,7 @@ services:
   - id: mac_alertes_sentry
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_MAC_ALERTES_SENTRY
       formatage: "#### [{event.environment}] {event.title} \n##### {culprit} \n[Voir sur Sentry]({url})"
       entreesSansInjectionsDeMarkdown: ["url"]
@@ -63,6 +70,7 @@ services:
   - id: mac_alertes_github_actions
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_WEBHOOK_MAC_GITHUB
       condition: "('{action}' === 'in_progress' || '{action}' === 'completed') && '{workflow_job.name}'.includes('Déploiement') && !'{workflow_job.name}'.includes('DEV') && '{workflow_job.conclusion}' !== 'cancelled' && '{workflow_job.conclusion}' !== 'skipped'"
       formatage: "##### :truck: {workflow_job.name} : **{action} (terminé en {workflow_job.conclusion})** \n ___ \n :merged: {workflow_job.workflow_name} \n :github: Démandé par {sender.login} \n ___ \n [:link: Cliquez ici pour suivre l'action]({workflow_job.html_url})"
@@ -71,6 +79,7 @@ services:
   - id: mac_alertes_github_pull_request_ouverte
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_WEBHOOK_MAC_GITHUB
       condition: "'{action}' === 'opened'"
       formatage: "###### :git-pull-request: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été créée par :github: {pull_request.user.login}"
@@ -79,6 +88,7 @@ services:
   - id: mac_alertes_github_pull_request_approuvee
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_WEBHOOK_MAC_GITHUB
       condition: "'{action}' === 'submitted' && '{review.state}' === 'approved'"
       formatage: "###### :white_check_mark: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été approuvée par :github: {review.user.login}"
@@ -87,6 +97,7 @@ services:
   - id: mac_alertes_github_pull_request_mergee
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_WEBHOOK_MAC_GITHUB
       condition: "'{action}' === 'closed' && {pull_request.merged} === true"
       formatage: "###### :merged: La PR `{pull_request.title}` [#{pull_request.number}]({pull_request.html_url}) a été mergée par :github: {pull_request.merged_by.login}"
@@ -95,6 +106,7 @@ services:
   - id: mac_alertes_crisp
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_MAC_ALERTES_CRISP
       formatage: "#### Message utilisateur : {data.user.nickname} \n > {data.content} \n\n[Voir sur Crisp](https://app.crisp.chat/website/{website_id}/inbox/{data.session_id})"
 
@@ -105,6 +117,7 @@ services:
   - id: msc_alertes_sentry
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_MSC_ALERTES_SENTRY
       formatage: "#### {event.title} \n##### {culprit} \n[Voir sur Sentry]({url})"
       entreesSansInjectionsDeMarkdown: ["url"]
@@ -112,6 +125,7 @@ services:
   - id: msc_alertes_crisp
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_MSC_ALERTES_CRISP
       formatage: "#### Message utilisateur : {data.user.nickname} \n > {data.content} \n\n[Voir sur Crisp](https://app.crisp.chat/website/{website_id}/inbox/{data.session_id})"
 
@@ -122,6 +136,7 @@ services:
   - id: lab_admin_alertes_github
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_LAB_ANSSI_GITHUB_ACTION
       condition: "('{action}' === 'completed') && '{workflow_job.name}'.includes('Backup')"
       formatage: "##### :floppy_disk: {workflow_job.name} : **{action} (terminé en {workflow_job.conclusion})**"
@@ -133,6 +148,7 @@ services:
   - id: ui_kit_alertes_github_release
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_UI_KIT_GITHUB_RELEASE
       condition: "('{action}' === 'published')"
       formatage: "### :art: UI Kit {release.name} \n\n ___ \n\n {release.body}"
@@ -144,6 +160,7 @@ services:
   - id: lab_anssi_lib_alertes_github_release
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_LAB_ANSSI_LIB_GITHUB_RELEASE
       condition: "('{action}' === 'published')"
       formatage: "### :books: Lab. ANSSI Librairie {release.name} \n\n ___ \n\n {release.body}"
@@ -155,6 +172,7 @@ services:
   - id: dsc_alertes_sentry
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_DSC_ALERTES_SENTRY
       formatage: "#### [{event.environment}] {event.title} \n##### {culprit} \n[Voir sur Sentry]({url})"
       entreesSansInjectionsDeMarkdown: [ "url" ]
@@ -166,6 +184,7 @@ services:
   - id: lab_anssi_dependabot
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_DEPENDABOT
       condition: "('{action}' === 'created')"
       formatage: "#### 🤖📦 Nouvelle alerte de sécurité sur la dépendance `{alert.dependency.package.name}`\nLe dépôt **{repository.name}** [a une nouvelle vulnérabilité]({alert.html_url}) de sévérité `{alert.security_vulnerability.severity}`."
@@ -174,6 +193,7 @@ services:
   - id: lab_anssi_code_scanning
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_CODE_SCANNING
       condition: "('{action}' === 'created')"
       formatage: "#### 🤖🛡️ Vulnérabilité détectée dans notre code\nLe dépôt **{repository.name}** [a une nouvelle vulnérabilité]({alert.html_url}) de sévérité `{alert.rule.severity}`, détectée par la règle `{alert.rule.id}`.\n> {alert.rule.full_description}"
@@ -182,6 +202,7 @@ services:
   - id: lab_anssi_clevercloud
     type: redirectionWebhook
     configuration:
+      urlHoteMattermost: !env MATTERMOST_URL_HOTE_LEGACY
       idWebhookMattermost: !env ID_MATTERMOST_CLEVERCLOUD
       condition: "('{deployment.action}' === 'DEPLOY' && '{deployment.state}' === 'OK')"
       formatage: "#### 🚀☁️:clever_cloud: Nouveau déploiement sur CleverCloud pour `{application.name}`\nLe commit `{data.commitId}` a été déployé par `{authorId}`."

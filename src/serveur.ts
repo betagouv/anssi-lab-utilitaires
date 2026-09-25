@@ -6,7 +6,7 @@ import {aseptiseMarkdown, fabriqueFormatagePayload} from "./formatage/formatageP
 const fabriqueUrlComplete = (webhook: Service): URL => {
     return new URL(
       `/hooks/${webhook.configuration.idWebhookMattermost}`,
-      `https://mattermost.incubateur.net`)
+      webhook.configuration.urlHoteMattermost)
 }
 
 const fabriqueApplication: (configuration: Configuration) => Application = (configuration) => {

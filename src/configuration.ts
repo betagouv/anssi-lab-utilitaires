@@ -14,7 +14,7 @@ export type Service = {
 type ConfigurationService = ConfigurationRedirectionWebhook;
 
 type ConfigurationRedirectionWebhook = {
-    urlHoteMattermost?: string
+    urlHoteMattermost: string
     idWebhookMattermost: string;
     formatage: string;
     condition?: string;
