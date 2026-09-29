@@ -51,6 +51,16 @@ describe('Le formatage des payload', () => {
       expect(espion).toHaveBeenCalledExactlyOnceWith(contenuAAseptiser);
     });
 
+    it("peut `eval` une condition qui contient à la base un guillemet simple", () => {
+      const contenuAAseptiser = "Vérifie qu'on peut toujours créer un service";
+      const template = "'{name}'.includes('toujours')"
+      const donnees = { name: contenuAAseptiser };
+
+      const resultat = formatagePayload(template, donnees)
+
+      expect(eval(resultat)).toBe(true)
+    });
+
     describe("n'aseptise pas les valeurs des cles specifiees", () => {
       let espion: Mock<(x: unknown) => string>;
 

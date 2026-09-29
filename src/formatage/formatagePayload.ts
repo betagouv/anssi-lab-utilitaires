@@ -5,7 +5,7 @@ const proprieteFille = (chaine: string, obj: any) => {
 };
 
 export const aseptiseMarkdown = (contenu: string) =>
-  ["\\", "!", "[", "]", "`", "{", "}", "*", "_", "<", ">", "(", ")", "#", "+", "-", ".", "|"]
+  ["\\", "!", "[", "]", "`", "{", "}", "*", "_", "<", ">", "(", ")", "#", "+", "-", ".", "|", "'"]
       .reduce(
           (acc, caractere) => acc.replaceAll(caractere, `\\${caractere}`),
           contenu,
