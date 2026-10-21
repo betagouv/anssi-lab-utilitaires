@@ -19,6 +19,7 @@
     "@types/supertest": "~6.0.3",
     "supertest": "~7.1.4",
     "typescript": "~5.2.2",
+    "vite": "7.3.7",
     "vitest": "~4.0.8"
   },
   "dependencies": {
